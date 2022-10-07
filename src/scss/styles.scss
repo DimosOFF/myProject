@@ -1,0 +1,438 @@
+$main-color: #4e1f16;
+$mobile-max: "max-width: 991.98px";
+$mobile-min: "min-width: 992px";
+$transition3: 0.3s ease;
+$raleway: "Raleway", sans-serif;
+
+@import "_nullstyle.scss";
+@import "_fonts.scss";
+@import "_templates.scss";
+//@import "./node_modules/swiper/swiper.scss";
+
+body {
+  font-family: "Underdog", sans-serif;
+  color: #3a302a;
+}
+.wrapper {
+  min-height: 100vh;
+}
+.container {
+  max-width: 1400px;
+  padding: 0 30px;
+  margin: 0 auto;
+}
+.header {
+  position: fixed;
+  top: 35px;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: #fff;
+  transition: transform $transition3, top $transition3;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+
+  &__container {
+    height: 94px;
+    transition: height $transition3;
+
+    %header-scrolled & {
+      height: 54px;
+    }
+
+    @media ($mobile-max) {
+      & {
+        height: 74px;
+      }
+    }
+  }
+
+  &__body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &._scrolled {
+    @extend %header-scrolled;
+    top: 0;
+  }
+  &._menu-opened {
+    @extend %menu-opened;
+  }
+}
+.logo {
+  position: relative;
+  font-size: 0;
+  line-height: 0;
+
+  & > * {
+    display: inline-block;
+    top: 0;
+    left: 0;
+    position: relative;
+    vertical-align: middle;
+    transition: width $transition3, margin $transition3;
+  }
+  &__cat {
+    width: 76px;
+    margin: -19px -20px 0 0;
+    z-index: 1;
+
+    %header-scrolled & {
+      width: 45px;
+      margin: 4px -11px -15px 0;
+    }
+
+    @media ($mobile-max) {
+      & {
+        width: 66px;
+      }
+    }
+  }
+  &__text {
+    width: 277px;
+
+    %header-scrolled & {
+      width: 152px;
+    }
+
+    @media ($mobile-max) {
+      & {
+        width: 217px;
+      }
+    }
+  }
+
+  & img {
+    height: auto;
+  }
+}
+.menu {
+  & &__list {
+    li {
+      display: inline-block;
+
+      &::before,
+      &::after {
+        content: "";
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        margin: 0 20px;
+        border-radius: 50%;
+        vertical-align: middle;
+        background-color: $main-color;
+
+        @media ($mobile-max) {
+          & {
+            width: 3px;
+            height: 3px;
+            margin: 0 10px;
+          }
+        }
+      }
+      @media ($mobile-min) {
+        &::after {
+          content: normal;
+        }
+        &:first-child::before {
+          content: normal;
+        }
+      }
+      @media ($mobile-max) {
+        & {
+          display: block;
+          margin: 20px 0;
+          text-align: center;
+        }
+      }
+    }
+  }
+  &__link {
+    position: relative;
+    color: $main-color;
+    font-family: $raleway;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 5px 0;
+    text-transform: uppercase;
+    text-decoration: none;
+    vertical-align: middle;
+
+    @media ($mobile-min) {
+      &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        opacity: 0;
+        transform: scale(0.8);
+        background-color: $main-color;
+        transition: opacity $transition3, transform $transition3;
+      }
+      &:hover::after {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  @media ($mobile-max) {
+    & {
+      position: fixed;
+      top: 35px;
+      right: 0;
+      bottom: 0;
+      overflow: auto;
+      width: 340px;
+      padding: 110px 30px 10px;
+      background-color: #fff;
+      transform-origin: right center;
+      transform: perspective(100px) translateX(100%) rotateY(-20deg);
+      transition: transform $transition3, top $transition3;
+    }
+    %menu-opened & {
+      transform: perspective(100px) translateX(0);
+    }
+    %header-scrolled & {
+      top: 0;
+    }
+  }
+}
+.burger {
+  display: none;
+  width: 30px;
+  height: 19px;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  perspective: 50px;
+  background-color: transparent;
+  transition: transform $transition3;
+
+  & span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    z-index: 20;
+    border-radius: 3px;
+    perspective: 50px;
+    background-color: $main-color;
+    transition: transform 0.6s ease, opacity $transition3;
+
+    &:nth-child(1) {
+      top: 0;
+
+      %menu-opened & {
+        transform: translateY(8px) rotateY(180deg) rotateZ(45deg);
+      }
+    }
+    &:nth-child(2) {
+      top: 8px;
+      transition-delay: 0.2s;
+
+      %menu-opened & {
+        transform: rotateY(45deg) rotateZ(90deg);
+        opacity: 0;
+      }
+    }
+    &:nth-child(3) {
+      top: 16px;
+      transition-delay: 0.1s;
+
+      %menu-opened & {
+        transform: translateY(-8px) rotateY(180deg) rotateZ(-45deg);
+      }
+    }
+  }
+
+  %menu-opened & {
+    transform: rotateY(180deg);
+  }
+
+  @media ($mobile-max) {
+    & {
+      display: block;
+    }
+  }
+}
+.main-banner {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    overflow: hidden;
+  }
+  &__container {
+    position: relative;
+    width: 100%;
+    color: #fff;
+    padding-top: 180px;
+    padding-bottom: 50px;
+
+    & > * {
+      max-width: 500px;
+    }
+  }
+  &__heading {
+    font-family: $raleway;
+    font-size: 41px;
+    line-height: 1;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    & span {
+      display: block;
+      font-size: 81px;
+      font-weight: 900;
+    }
+  }
+  &__text {
+    font-size: 22px;
+    margin-top: 30px;
+  }
+  &__button {
+    margin-top: 30px;
+  }
+}
+.subheading {
+  color: $main-color;
+
+  &__icon {
+    margin-right: 10px;
+  }
+  &__title {
+    display: inline-block;
+    font-family: $raleway;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 800;
+    vertical-align: middle;
+    text-transform: uppercase;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 3px;
+      margin: 4px 0 4px 10px;
+      border-radius: 3px;
+      background-color: $main-color;
+    }
+  }
+}
+.content-text {
+  padding: 50px 0;
+
+  &__wrapper {
+    display: flex;
+    margin: 30px -15px 0;
+  }
+  &__text {
+    flex: 0 0 50%;
+    padding: 0 15px;
+
+    &_big {
+      font-size: 38px;
+      line-height: 1.3;
+    }
+    &_small {
+      font-size: 20px;
+      line-height: 1.4;
+      padding-top: 7px;
+    }
+  }
+}
+.for-sale {
+  padding: 50px 0;
+  background-color: #fbf7f0;
+
+  & &__swiper {
+    margin: 20px -15px 0;
+  }
+}
+.swiper {
+  &-wrapper {
+    display: flex;
+  }
+  & &-slide {
+    flex: 0 1 25%;
+    height: auto;
+  }
+  &-button-prev {
+  }
+  &-button-next {
+  }
+}
+.cat-card {
+  padding: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__wrapper {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+    transition: transform $transition3, box-shadow $transition3;
+
+    &:hover {
+      // @extend %card-hover;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+      transform: scale(1.03);
+    }
+  }
+  &__image {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 85.25%;
+    width: 100%;
+  }
+  &__content {
+    padding: 20px 25px 0;
+    flex-grow: 1;
+  }
+  &__title {
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.2;
+    font-family: $raleway;
+  }
+  &__description {
+    font-size: 18px;
+    margin-top: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    text-overflow: ellipsis;
+  }
+  &__button-wrapper {
+    margin: 20px 25px 28px;
+    transition: margin $transition3, opacity $transition3;
+  }
+  &__button {
+    font-size: 14px;
+    width: 100%;
+  }
+}

@@ -1,0 +1,45 @@
+@font-face {
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 900;
+	src: local(''),
+	url("../fonts/Raleway-Black.woff2") format("woff2"),
+	url("../fonts/Raleway-Black.woff") format("woff");
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 700;
+	src: local(''),
+	url("../fonts/Raleway-Bold.woff2") format("woff2"),
+	url("../fonts/Raleway-Bold.woff") format("woff");
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 700;
+	src: local(''),
+	url("../fonts/Raleway-ExtraBold.woff2") format("woff2"),
+	url("../fonts/Raleway-ExtraBold.woff") format("woff");
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 500;
+	src: local(''),
+	url("../fonts/Raleway-Medium.woff2") format("woff2"),
+	url("../fonts/Raleway-Medium.woff") format("woff");
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Underdog';
+	font-style: normal;
+	font-weight: 400;
+	src: local(''),
+	url("../fonts/Underdog-Regular.woff2") format("woff2"),
+	url("../fonts/Underdog-Regular.woff") format("woff");
+	font-display: swap;
+}
